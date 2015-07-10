@@ -27,7 +27,7 @@ define( 'TECHNICALDOCS_URL', plugins_url( '', __FILE__ ) );
  */
 class TechnicalDocs {
 
-	public $primary_page;
+	public $cpt_document;
 
 	private function __clone() { }
 
@@ -70,6 +70,9 @@ class TechnicalDocs {
 	 * @since 0.1.0
 	 */
 	public function require_necessities() {
+
+		require_once __DIR__ . '/core/class-technicaldocs-document-cpt.php';
+		$this->cpt_document = new TechnicalDocs_Document_CPT();
 	}
 
 	/**
@@ -80,7 +83,7 @@ class TechnicalDocs {
 	private function add_base_actions() {
 
 		add_action( 'init', array( $this, '_register_assets' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_admin_assets' ) );
 	}
 
 	/**
@@ -90,37 +93,37 @@ class TechnicalDocs {
 	 */
 	function _register_assets() {
 
-		// Main
-//		wp_register_script(
-//			'pd-customerdata',
-//			TECHNICALDOCS_URL . '/assets/js/pd-cd-script.js',
-//			array( 'jquery' ),
-//			TECHNICALDOCS_VERSION
-//		);
+		// Admin
+		wp_register_script(
+			'technical-docs-admin',
+			TECHNICALDOCS_URL . '/assets/js/technicaldocs-admin.js',
+			array( 'jquery' ),
+			TECHNICALDOCS_VERSION
+		);
 
-//		// Chosen
-//		wp_register_script(
-//			'pd-customerdata-chosen',
-//			TECHNICALDOCS_URL . '/includes/vendor/chosen/chosen.jquery.min.js',
-//			array( 'jquery' ),
-//			'1.4.2'
-//		);
-//
-//		wp_register_style(
-//			'pd-customerdata-chosen',
-//			TECHNICALDOCS_URL . '/includes/vendor/chosen/chosen.min.css',
-//			array(),
-//			'1.4.2'
-//		);
+		// Chosen
+		wp_register_script(
+			'technical-docs-chosen',
+			TECHNICALDOCS_URL . '/includes/vendor/chosen/chosen.jquery.min.js',
+			array( 'jquery' ),
+			'1.4.2'
+		);
+
+		wp_register_style(
+			'technical-docs-chosen',
+			TECHNICALDOCS_URL . '/includes/vendor/chosen/chosen.min.css',
+			array(),
+			'1.4.2'
+		);
 	}
 
-	function _enqueue_assets() {
+	function _enqueue_admin_assets() {
 
-//		wp_enqueue_script( 'pd-customerdata' );
-//		wp_enqueue_script( 'pd-customerdata-chosen' );
-//		wp_enqueue_style( 'pd-customerdata-chosen' );
+		wp_enqueue_script( 'technical-docs-admin' );
+		wp_enqueue_script( 'technical-docs-chosen' );
+		wp_enqueue_style( 'technical-docs-chosen' );
 	}
 }
 
-require_once __DIR__ . '/core/pd-customerdata-functions.php';
+require_once __DIR__ . '/core/technicaldocs-functions.php';
 TECHNICALDOCS();
