@@ -1,6 +1,6 @@
 <?php
 /**
- * Creates and manages the slides CPT.
+ * Creates and manages the document CPT.
  *
  * @since      0.1.0
  *

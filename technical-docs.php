@@ -29,6 +29,8 @@ class TechnicalDocs {
 
 	public $cpt_document;
 
+	public $shortcodes;
+
 	private function __clone() { }
 
 	private function __wakeup() { }
@@ -73,6 +75,9 @@ class TechnicalDocs {
 
 		require_once __DIR__ . '/core/class-technicaldocs-document-cpt.php';
 		$this->cpt_document = new TechnicalDocs_Document_CPT();
+
+		require_once __DIR__ . '/core/class-technicaldocs-shortcodes.php';
+		$this->shortcodes = new TechnicalDocs_Shortcodes();
 	}
 
 	/**
