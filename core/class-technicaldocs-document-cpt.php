@@ -67,12 +67,41 @@ class TechnicalDocs_Document_CPT {
 			'menu_icon'          => 'dashicons-media-document',
 			'capability_type'    => 'post',
 			'has_archive'        => true,
+			'rewrite' => array(
+				'slug' => 'documents',
+			),
 			'hierarchical'       => false,
 			'menu_position'      => null,
 			'supports'           => array( 'title' )
 		);
 
 		register_post_type( $this->post_type, $args );
+
+		$label_single = 'Category';
+		$label_plural = 'Categories';
+
+		$labels = array(
+			'name'               => $label_plural,
+			'singular_name'      => $label_single,
+			'menu_name'          => $label_plural,
+			'name_admin_bar'     => $label_single,
+			'add_new'            => "Add New",
+			'add_new_item'       => "Add New $label_single",
+			'new_item'           => "New $label_single",
+			'edit_item'          => "Edit $label_single",
+			'view_item'          => "View $label_single",
+			'all_items'          => "All $label_plural",
+			'search_items'       => "Search $label_plural",
+			'parent_item_colon'  => "Parent $label_plural:",
+			'not_found'          => "No $label_plural found.",
+			'not_found_in_trash' => "No $label_plural found in Trash.",
+		);
+
+		register_taxonomy( 'document-category', 'document', array(
+			'labels'            => $labels,
+			'show_admin_column' => true,
+			'hierarchical' => true,
+		) );
 	}
 
 	function _post_messages( $messages ) {
